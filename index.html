@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Dick | Dominance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Stalinist+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --aura-color: rgba(255, 0, 0, 0.3);
+            --power-gold: #ffcc00;
+            --wall-width: 300px;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            cursor: none; 
+        }
+
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('background.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        #the-wall {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--wall-width);
+            height: 100vh;
+            background: linear-gradient(to right, #0a0a0a, #1a1a1a);
+            border-right: 2px solid #333;
+            box-shadow: 20px 0 50px rgba(0,0,0,0.9);
+            z-index: 20; /* Wall is on top of the logo start point */
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 20px;
+        }
+
+        #the-wall::after {
+            content: "ALPHA ZONE";
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            color: #222;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            letter-spacing: 10px;
+        }
+
+        .logo-reveal-box {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            width: 100%; /* Full width to allow the logo to travel far */
+            height: 400px;
+            z-index: 10;
+            pointer-events: none;
+            transform: translateY(-50%);
+        }
+
+        .logo {
+            position: absolute;
+            /* Start deep inside the wall (wall is 300px wide) */
+            left: 0px; 
+            top: 50%;
+            transform: translateY(-50%);
+            width: 300px;
+            pointer-events: all;
+            filter: drop-shadow(0 0 15px var(--power-gold));
+            opacity: 1; /* Always visible, just hidden by the wall layer */
+            
+            /* 20 Second Total Animation */
+            animation: emerge 20s ease-out forwards;
+        }
+
+        @keyframes emerge {
+            0% { 
+                left: 0px; 
+            }
+            /* By 10% (2 seconds in), it has cleared the wall so the user sees it moving */
+            10% { 
+                left: 320px; 
+            }
+            /* The remaining 18 seconds it drifts slowly to the right */
+            100% { 
+                left: 450px; 
+                filter: drop-shadow(0 0 40px var(--power-gold)); 
+            }
+        }
+
+        .content {
+            margin-left: calc(var(--wall-width) + 150px);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            z-index: 5;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Stalinist One', cursive;
+            font-size: 6rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            color: #fff;
+            text-shadow: 5px 5px 0px #ff0000;
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.5s; 
+        }
+
+        .twitter-btn {
+            margin-top: 30px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #ff0000;
+            padding: 10px 40px;
+            background: rgba(255, 0, 0, 0.1);
+            transition: 0.3s;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeIn 1s forwards 1s;
+        }
+
+        .twitter-btn:hover {
+            background: #ff0000;
+            box-shadow: 0 0 40px #ff0000;
+            transform: scale(1.1);
+        }
+
+        #aura {
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, var(--aura-color) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            mix-blend-mode: color-dodge;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateX(20px); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-layer"></div>
+    <div id="aura"></div>
+
+    <!-- The Wall is z-index 20 (Higher than logo) -->
+    <div id="the-wall"></div>
+
+    <!-- The Logo is z-index 10 (Behind the wall) -->
+    <div class="logo-reveal-box">
+        <img src="THE_WHITE_NET-removebg-preview.png" alt="Logo" class="logo" id="alphaLogo">
+    </div>
+
+    <div class="content">
+        <h1 id="alphaTitle">Alpha Dick</h1>
+        <a href="https://x.com/AlphaDick" class="twitter-btn">Enter the Alpha Realm on X</a>
+    </div>
+
+    <script>
+        const aura = document.getElementById('aura');
+        const logo = document.getElementById('alphaLogo');
+        const title = document.getElementById('alphaTitle');
+
+        document.addEventListener('mousemove', (e) => {
+            aura.style.left = e.clientX + 'px';
+            aura.style.top = e.clientY + 'px';
+        });
+
+        const interact = (el) => {
+            el.addEventListener('mouseenter', () => {
+                aura.style.width = '600px';
+                aura.style.height = '600px';
+                el.style.filter = "drop-shadow(0 0 50px #ff0000)";
+            });
+            el.addEventListener('mouseleave', () => {
+                aura.style.width = '450px';
+                aura.style.height = '450px';
+                el.style.filter = "drop-shadow(0 0 30px var(--power-gold))";
+            });
+        };
+
+        interact(logo);
+        interact(title);
+    </script>
+</body>
+</html>
